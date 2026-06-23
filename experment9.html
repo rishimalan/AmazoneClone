@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Registration Form</title>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 400px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px gray;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 90%;
+            padding: 12px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: darkgreen;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin: 2px 0 8px 0;
+            text-align: left;
+            padding-left: 5%;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        .api-data-box {
+            margin-top: 25px;
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: left;
+            border-left: 4px solid #2e7d32;
+        }
+        .api-data-box h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .api-data-box ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React; // [cite: 167]
+
+        function App() {
+            const [name, setName] = useState("");
+            const [email, setEmail] = useState("");
+            const [password, setPassword] = useState("");
+            const [errors, setErrors] = useState({});
+            const [success, setSuccess] = useState("");
+            const [users, setUsers] = useState([]);
+
+            // useEffect side-effect tracking data array updates dynamically [cite: 165, 169]
+            useEffect(() => {
+                console.log("System data sync logic triggered cleanly.");
+            }, [users]);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                let formErrors = {};
+
+                // Validation rule routines checking inputs states [cite: 168]
+                if (name.trim() === "") {
+                    formErrors.name = "Name is required [cite: 179]";
+                }
+                if (!email.includes("@")) {
+                    formErrors.email = "Email must contain @ [cite: 179]";
+                }
+                if (password.length < 6) {
+                    formErrors.password = "Password must be at least 6 characters [cite: 180]";
+                }
+
+                setErrors(formErrors); // Push errors descriptors [cite: 180]
+
+                if (Object.keys(formErrors).length === 0) {
+                    const newUser = { name: name, email: email }; // [cite: 181]
+                    setUsers([...users, newUser]); // Appending valid object entries [cite: 181]
+                    setSuccess("Registration Successful! [cite: 181]");
+                    
+                    // Clear field values
+                    setName("");
+                    setEmail("");
+                    setPassword("");
+                } else {
+                    setSuccess("");
+                }
+            };
+
+            return (
+                <div className="container">
+                    <h2>Registration Form</h2>
+                    <form onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            placeholder="Enter Name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <p className="error">{errors.name}</p>
+
+                        <input
+                            type="email"
+                            placeholder="Enter Email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <p className="error">{errors.email}</p>
+
+                        <input
+                            type="password"
+                            placeholder="Enter Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <p className="error">{errors.password}</p>
+
+                        <button type="submit">Register</button>
+                    </form>
+
+                    <p className="success">{success}</p>
+
+                    {/* Rendering dynamic collections lists layout [cite: 170] */}
+                    {users.length > 0 && (
+                        <div className="api-data-box">
+                            <h3>Registered Users</h3>
+                            <ul>
+                                {users.map((user, index) => (
+                                    <li key={index}>
+                                        {user.name} - {user.email}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+</html>

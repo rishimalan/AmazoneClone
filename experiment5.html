@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Salary Management</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            width: 650px;
+            margin: 40px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+        input {
+            padding: 10px;
+            margin: 6px;
+            width: 85%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .btn-panel {
+            margin: 15px 0;
+        }
+        button {
+            padding: 8px 14px;
+            margin: 5px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        button:hover {
+            background-color: #1e7e34;
+        }
+        #output {
+            margin-top: 20px;
+            text-align: left;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 6px;
+            border-left: 4px solid #28a745;
+            min-height: 50px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Employee Salary Management System</h2>
+        <input type="text" id="name" placeholder="Employee Name"><br>
+        <input type="text" id="empId" placeholder="Employee ID"><br>
+        <input type="number" id="salary" placeholder="Salary"><br>
+        <input type="text" id="dept" placeholder="Department"><br>
+        
+        <div class="btn-panel">
+            <button onclick="addEmployee()">Add Employee</button>
+            <button onclick="displayEmployees()">Display All</button>
+            <button onclick="filterSalary()">Salary > 50000</button>
+            <button onclick="totalSalary()">Total Salary</button>
+            <button onclick="averageSalary()">Average Salary</button>
+            <button onclick="countDepartment()">Employee Count by Department</button>
+        </div>
+        
+        <div id="output"></div>
+    </div>
+
+    <script>
+        let employees = [];
+
+        function addEmployee() {
+            let name = document.getElementById("name").value.trim();
+            let empId = document.getElementById("empId").value.trim();
+            let salary = parseFloat(document.getElementById("salary").value);
+            let dept = document.getElementById("dept").value.trim();
+
+            if (name === "" || empId === "" || isNaN(salary) || dept === "") {
+                alert("Please fill all fields properly [cite: 94]");
+                return;
+            }
+
+            // Encapsulating data into a single object record entity [cite: 81]
+            let employee = {
+                name: name,
+                id: empId,
+                salary: salary,
+                department: dept
+            };
+
+            employees.push(employee); // Appending entity into state array cache lookup [cite: 85]
+            alert("Employee Added Successfully!");
+
+            // Flush out inputs form data vectors
+            document.getElementById("name").value = "";
+            document.getElementById("empId").value = "";
+            document.getElementById("salary").value = "";
+            document.getElementById("dept").value = "";
+        }
+
+        function displayEmployees() {
+            if (employees.length === 0) {
+                document.getElementById("output").innerHTML = "<h3>No employee records available inside system store[cite: 102].</h3>";
+                return;
+            }
+            let output = "<h3>All Employees</h3>";
+            employees.forEach(emp => {
+                output += `<strong>Name:</strong> ${emp.name} | <strong>ID:</strong> ${emp.id} | <strong>Salary:</strong> ₹${emp.salary} | <strong>Dept:</strong> ${emp.department}<br>`;
+            });
+            document.getElementById("output").innerHTML = output; // Rendering directly onto page container nodes [cite: 87]
+        }
+
+        function filterSalary() {
+            // Processing filtering matching strict operational boundary properties [cite: 81, 86]
+            let filtered = employees.filter(emp => emp.salary > 50000);
+            let output = "<h3>Employees with Salary > ₹50,000</h3>";
+            
+            if (filtered.length === 0) {
+                output += "No current matching entity satisfies boundary guidelines.";
+            } else {
+                filtered.forEach(emp => {
+                    output += `Name: ${emp.name} | Salary: ₹${emp.salary}<br>`;
+                });
+            }
+            document.getElementById("output").innerHTML = output;
+        }
+
+        function totalSalary() {
+            let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
+            document.getElementById("output").innerHTML = "<h3>Total Salary Payout: ₹" + total.toFixed(2) + "</h3>";
+        }
+
+        function averageSalary() {
+            if (employees.length === 0) {
+                document.getElementById("output").innerHTML = "<h3>No employee records available [cite: 102]</h3>";
+                return;
+            }
+            let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
+            let avg = total / employees.length;
+            document.getElementById("output").innerHTML = "<h3>Average Salary: ₹" + avg.toFixed(2) + "</h3>";
+        }
+
+        function countDepartment() {
+            let deptName = prompt("Enter Department Name:");
+            if (!deptName) return;
+            
+            let count = employees.filter(emp => emp.department.toLowerCase() === deptName.toLowerCase()).length;
+            document.getElementById("output").innerHTML = `<h3>Employees in ${deptName}: ${count}</h3>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Counter App</title>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            width: 380px;
+            margin: 100px auto;
+            padding: 35px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+        .counter-display {
+            font-size: 55px;
+            margin: 20px 0;
+            color: #222;
+            font-weight: bold;
+        }
+        .buttons button {
+            margin: 8px;
+            padding: 10px 18px;
+            font-size: 15px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Pulling useState cleanly out of React core properties [cite: 150]
+        const { useState } = React;
+
+        function App() {
+            // Setting state metrics initialized at 0 baseline [cite: 151, 155]
+            const [count, setCount] = useState(0);
+
+            const increment = () => setCount(count + 1); // [cite: 156]
+            const decrement = () => setCount(count - 1); // [cite: 156]
+            const reset = () => setCount(0); // [cite: 157]
+
+            return (
+                <div className="container">
+                    <h1>React Counter Application</h1>
+                    <h2 className="counter-display">{count}</h2>
+                    <div className="buttons">
+                        <button onClick={increment}>Increment (+)</button>
+                        <button onClick={decrement}>Decrement (-)</button>
+                        <button onClick={reset}>Reset</button>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+</html>

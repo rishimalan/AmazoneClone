@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Student Component</title>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .student-card {
+            background: white;
+            width: 280px;
+            padding: 20px;
+            margin: 15px auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+            text-align: left;
+            border-left: 5px solid #2c3e50;
+        }
+        .student-card h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        .student-card p {
+            font-size: 16px;
+            margin: 6px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        
+        // Reusable Functional Child Component catching properties [cite: 138, 140]
+        function Student(props) {
+            return (
+                <div className="student-card">
+                    <h2>{props.name}</h2>
+                    <p><strong>Course:</strong> {props.course}</p>
+                    <p><strong>Marks obtained:</strong> {props.marks}</p>
+                </div>
+            );
+        }
+
+        // Main App Orchestration Module parsing entries cleanly downwards [cite: 142]
+        function App() {
+            return (
+                <div>
+                    <h1>Student Information</h1>
+                    <Student name="Kanav Sharma" course="Computer Science" marks="85" />
+                    <Student name="Anita Verma" course="Information Technology" marks="92" />
+                    <Student name="prakhar Gupta" course="Electronics" marks="78" />
+                </div>
+            );
+        }
+
+        // Attaching active rendering instances to root element 
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+</body>
+</html>

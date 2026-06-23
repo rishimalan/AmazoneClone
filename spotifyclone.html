@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Spotify Clone</title>
+<style>
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#121212;
+color:white;
+}
+.sidebar{
+width:220px;
+height:100vh;
+background:black;
+position:fixed;
+padding:20px;
+}
+.content{
+margin-left:260px;
+padding:20px;
+}
+.card{
+display:inline-block;
+width:180px;
+background:#1e1e1e;
+padding:15px;
+margin:10px;
+border-radius:10px;
+transition:0.3s;
+}
+.card:hover{
+background:#2a2a2a;
+transform:scale(1.05);
+}
+.play{
+background:#1DB954;
+padding:10px 20px;
+border:none;
+border-radius:20px;
+color:white;
+cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<h2>Spotify</h2>
+<p>Home</p>
+<p>Search</p>
+<p>Library</p>
+</div>
+
+<div class="content">
+<h1>Trending Playlists</h1>
+
+<div class="card">
+<h3>Top Hits</h3>
+<p>Best songs of the week</p>
+<button class="play">Play</button>
+</div>
+
+<div class="card">
+<h3>Workout</h3>
+<p>Gym motivation</p>
+<button class="play">Play</button>
+</div>
+</div>
+</body>
+</html>

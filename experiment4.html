@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Calculator</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 40px;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+        input {
+            padding: 8px;
+            width: 80%;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: left;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Student Result Calculator</h2>
+        <label for="subjects"> Number of Subjects</label><br>
+        <input type="number" id="subjects" min="1" placeholder="e.g. 5"><br>
+        <button onclick="calculateResult()">Calculate Result</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateResult() {
+            let n = parseInt(document.getElementById("subjects").value);
+            
+            if (isNaN(n) || n <= 0) {
+                alert("Please provide a valid number of subjects to initialize calculations.");
+                return;
+            }
+            
+            let total = 0;
+            // Loop for processing subject marks safely [cite: 62, 69]
+            for (let i = 1; i <= n; i++) {
+                let inputMarks = prompt("Enter marks for Subject " + i);
+                let marks = parseFloat(inputMarks);
+                
+                if (isNaN(marks) || marks < 0 || marks > 100) {
+                    alert("Invalid inputs detected. Operational threshold bounds are restricted between 0-100.");
+                    return;
+                }
+                total = total + marks;
+            }
+            
+            let average = total / n;
+            let grade;
+            let result;
+            
+            // Conditional branches mapping final grading indices [cite: 62, 70]
+            if (average >= 90) {
+                grade = "A+";
+            } else if (average >= 75) {
+                grade = "A";
+            } else if (average >= 60) {
+                grade = "B";
+            } else if (average >= 50) {
+                grade = "C";
+            } else {
+                grade = "F";
+            }
+            
+            if (average >= 40) {
+                result = "PASS";
+            } else {
+                result = "FAIL";
+            }
+            
+            // Dynamic node layout insertion rendering metrics cleanly onto the webpage view [cite: 70]
+            document.getElementById("result").innerHTML =
+                "<strong>Total Marks:</strong> " + total + "<br>" +
+                "<strong>Average Marks:</strong> " + average.toFixed(2) + "<br>" +
+                "<strong>Grade:</strong> " + grade + "<br>" +
+                "<strong>Result:</strong> <span style='color:" + (result === "PASS" ? "green" : "red") + "'>" + result + "</span>";
+        }
+    </script>
+</body>
+</html>

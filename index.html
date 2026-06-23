@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon Clone MVP - Shop Electronics, Books, Fashion & More</title>
+  <meta name="description"
+    content="Shop the Amazon Clone MVP. Get amazing deals on electronics, books, clothing, and kitchenware with quick checkout.">
+  <!-- Link to style.css -->
+  <link rel="stylesheet" href="style.css">
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Sticky Top Navigation Bar -->
+  <header>
+    <!-- Main Header -->
+    <div class="navbar-main">
+      <!-- Amazon Logo -->
+      <a href="#" class="nav-logo" id="logoLink">
+        <div class="logo-text-wrapper">
+          <div class="nav-logo-text">amazon<span>.in</span></div>
+          <div class="logo-smile"></div>
+        </div>
+      </a>
+
+      <!-- Location Selector -->
+      <div class="nav-location">
+        <i class="fa-solid fa-location-dot"></i>
+        <div class="location-text">
+          <span class="location-text-top">Deliver to</span>
+          <span class="location-text-bottom">India</span>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="nav-search">
+        <select class="search-select">
+          <option value="all">All Departments</option>
+          <option value="mobiles">Mobiles</option>
+          <option value="electronics">Electronics</option>
+          <option value="fashion">Clothing & Fashion</option>
+          <option value="books">Books</option>
+          <option value="home">Home & Kitchen</option>
+        </select>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search Amazon.in">
+        <button class="search-button" id="searchBtn" aria-label="Search button">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+
+      <!-- Actions -->
+      <div class="nav-actions">
+        <!-- Account & Lists -->
+        <div class="nav-link">
+          <span class="nav-link-top">Hello, sign in</span>
+          <span class="nav-link-bottom">Account & Lists <i class="fa-solid fa-caret-down"
+              style="font-size: 0.7rem; color: #a6a6a6;"></i></span>
+        </div>
+
+        <!-- Returns & Orders -->
+        <div class="nav-link">
+          <span class="nav-link-top">Returns</span>
+          <span class="nav-link-bottom">& Orders</span>
+        </div>
+
+        <!-- Cart Icon Link -->
+        <div class="nav-cart" id="cartIcon" onclick="toggleCart()">
+          <div class="cart-icon-wrapper">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span id="cartBadge">0</span>
+          </div>
+          <span class="cart-text">Cart</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Navbar (Categories) -->
+    <div class="navbar-sub">
+      <div class="sub-link nav-category bold-sub" data-category="all">
+        <i class="fa-solid fa-bars"></i> All
+      </div>
+      <div class="sub-link nav-category" data-category="all">Today's Deals</div>
+      <div class="sub-link nav-category" data-category="mobiles">Mobiles</div>
+      <div class="sub-link nav-category" data-category="electronics">Electronics</div>
+      <div class="sub-link nav-category" data-category="fashion">Fashion</div>
+      <div class="sub-link nav-category" data-category="home">Home & Kitchen</div>
+      <div class="sub-link nav-category" data-category="books">Books</div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-container">
+    <h1 class="sr-only">Amazon India Clone MVP - E-commerce Store</h1>
+
+    <!-- Hero Slider Banner Section -->
+    <section class="hero-section">
+      <div class="hero-control prev" id="heroPrevBtn">
+        <i class="fa-solid fa-chevron-left"></i>
+      </div>
+
+      <div class="hero-slider" id="heroSlider">
+        <!-- Slide 1 -->
+        <div class="hero-slide">
+          <img src="https://picsum.photos/id/119/1500/380" alt="Special Tech Deals Banner">
+          <div class="hero-content">
+            <h2>Up to 40% Off Tech Gadgets</h2>
+            <p>Shop premium laptops, accessories, audio systems, and more. Limited time deals on global brands.</p>
+            <button class="hero-btn">Explore Deals</button>
+          </div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="hero-slide">
+          <img src="https://picsum.photos/id/48/1500/380" alt="Fashion Trends Banner">
+          <div class="hero-content">
+            <h2>Summer Fashion Collection</h2>
+            <p>Find the trendiest clothes, shoes, and clothing accessories. Refresh your wardrobe today.</p>
+            <button class="hero-btn">Shop Fashion</button>
+          </div>
+        </div>
+        <!-- Slide 3 -->
+        <div class="hero-slide">
+          <img src="https://picsum.photos/id/367/1500/380" alt="Reading Essentials Banner">
+          <div class="hero-content">
+            <h2>Best Sellers in Books & Library</h2>
+            <p>Immerse yourself in new releases, best-selling authors, and self-help literature at great prices.</p>
+            <button class="hero-btn">View Best Sellers</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-control next" id="heroNextBtn">
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+    </section>
+
+    <!-- Products Showcase Section -->
+    <section class="products-section">
+      <div class="section-header">
+        <h2>Trending Products</h2>
+        <span class="product-count-label" id="resultsCount">Showing all products</span>
+      </div>
+
+      <!-- Placeholder Grid for JS Injected Cards -->
+      <div id="productGrid">
+        <!-- Products will be dynamically generated here -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sliding Shopping Cart Drawer (Hidden by default) -->
+  <div class="cart-backdrop" id="cartBackdrop" onclick="toggleCart()"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <!-- Cart Header -->
+    <div class="cart-header">
+      <h3>
+        <i class="fa-solid fa-cart-shopping"></i> Shopping Cart
+      </h3>
+      <button class="close-cart-btn" onclick="toggleCart()" aria-label="Close cart button">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Scrollable Items Area -->
+    <div class="cart-items-container" id="cartItemsList">
+      <!-- Empty Cart Message Placeholder -->
+      <div class="cart-empty-message">
+        <i class="fa-solid fa-cart-arrow-down"></i>
+        <h4>Your Amazon Cart is empty</h4>
+        <p>Add items to your cart to see them listed here.</p>
+      </div>
+    </div>
+
+    <!-- Cart Summary/Footer Area -->
+    <div class="cart-footer">
+      <div class="cart-summary-row">
+        <span class="cart-summary-label">Subtotal:</span>
+        <span class="cart-summary-total" id="cartTotal">₹0.00</span>
+      </div>
+      <button class="checkout-btn" id="checkoutBtn">
+        Proceed to Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Toast Notification Stack Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="back-to-top" id="backToTopBtn">
+      Back to top
+    </div>
+
+    <div class="footer-links-grid">
+      <div class="footer-column">
+        <h4>Get to Know Us</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press Releases</a></li>
+          <li><a href="#">Amazon Science</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Connect with Us</h4>
+        <ul>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Make Money with Us</h4>
+        <ul>
+          <li><a href="#">Sell on Amazon</a></li>
+          <li><a href="#">Sell under Amazon Accelerator</a></li>
+          <li><a href="#">Protect and Build Your Brand</a></li>
+          <li><a href="#">Amazon Global Selling</a></li>
+          <li><a href="#">Become an Affiliate</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Let Us Help You</h4>
+        <ul>
+          <li><a href="#">COVID-19 and Amazon</a></li>
+          <li><a href="#">Your Account</a></li>
+          <li><a href="#">Returns Centre</a></li>
+          <li><a href="#">100% Purchase Protection</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-logo">amazon<span>.in</span></div>
+      <p>&copy; 2026 Amazon Clone MVP. Created for web development project showcase.</p>
+    </div>
+  </footer>
+
+  <!-- Link to script.js -->
+  <script src="script.js"></script>
+</body>
+
+</html>

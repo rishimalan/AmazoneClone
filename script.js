@@ -505,3 +505,4 @@ function initHeroSlider() {
   // Start slider
   startInterval();
 }// update 1
+// update 2
